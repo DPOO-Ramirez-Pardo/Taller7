@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import uniandes.cupi2.almacen.mundo.Almacen;
@@ -21,7 +22,7 @@ public class AlmacenTest {
 	private Almacen almacen;
 	private static final String DATA_PATH = "./data/datos.txt";
 	
-	@Before
+	@BeforeEach @Before
 	public void setUp() {
 		try {
 			almacen = new Almacen(new File(DATA_PATH));
@@ -43,7 +44,7 @@ public class AlmacenTest {
 	@Test
 	public void eliminarNodoRaiz() {
 		try {
-			almacen.eliminarNodo("Cupi2");
+			almacen.eliminarNodo("1");
 			fail("El programa no lanzó error al intentar eliminar la raíz.");
 		} catch (AlmacenException e) {
 			
@@ -101,7 +102,7 @@ public class AlmacenTest {
 	public void agregarNodoPadreIncorrecto(String idPadre, String pTipo, String pIdentificador, String pNombre) {
 		try {
 			almacen.agregarNodo(idPadre,pTipo,pIdentificador,pNombre);
-			fail("¡El método no lanzó excepción al introducir un padre incorrecto!");
+			fail("¡No se puede agregar un producto a un padre inexistente!");
 		} catch (AlmacenException e) {
 			
 		}
@@ -119,7 +120,61 @@ public class AlmacenTest {
 				assertEquals("¡El nombre del nodo no corresponde al nombre esperado!",nodo.darNombre(), pNombre);
 			}
 		} catch (AlmacenException e) {
+			fail("¡El método lanzó una excepción a una entrada válida!");
+		}
+	}
+	
+	@ParameterizedTest
+	@MethodSource("argumentsAgregarProductoExistente")
+	public void agregarProductoExistente(String pIdMarca, String pCodigo, String pNombre, String pDescripcion, double pPrecio) {
+		try {
+			almacen.agregarProducto(pIdMarca, pCodigo, pNombre, pDescripcion, pPrecio);
+			fail("¡El método no lanzó excepción al introducir un producto existente!");
+		} catch (AlmacenException e) {
 			
 		}
 	}
+	
+	@ParameterizedTest
+	@MethodSource("argumentsAgregarProductoMarcaIncorrecta")
+	public void agregarProductoMarcaIncorrecta(String pIdMarca, String pCodigo, String pNombre, String pDescripcion, double pPrecio) {
+		try {
+			almacen.agregarProducto(pIdMarca, pCodigo, pNombre, pDescripcion, pPrecio);
+			fail("¡No se pueden agregar productos a marcas inexistentes!");
+		} catch (AlmacenException e) {
+			
+		}
+	}
+	
+	@ParameterizedTest
+	@MethodSource("argumentsAgregarProductoCorrecto")
+	public void agregarProductoCorrecto(String pIdMarca, String pCodigo, String pNombre, String pDescripcion, double pPrecio) {
+		try {
+			almacen.agregarProducto(pIdMarca, pCodigo, pNombre, pDescripcion, pPrecio);
+			almacen.venderProducto(pCodigo, 1);
+		} catch (AlmacenException e) {
+			fail("¡El método lanzó una excepción a una entrada válida! - Mensaje: "+e.getMessage());
+		}
+	}
+	
+	@ParameterizedTest
+	@MethodSource("argumentsEliminarProducto")
+	public void eliminarProducto(String pCodigo) {
+		almacen.eliminarProducto(pCodigo);
+		try {
+			almacen.venderProducto(pCodigo, 1);
+			fail("El almacen no eliminó el producto correctamente.");
+		} catch(Exception e) {
+			
+		}
+	}
+	
+	private static Stream<Arguments> argumentsEliminarProducto(){
+		return Stream.of(
+					Arguments.of("32206871"),
+					Arguments.of("8804692551"),
+					Arguments.of("33898021")
+				);
+	}
+	
 }
