@@ -27,25 +27,25 @@ public class AlmacenTest {
 		try {
 			almacen = new Almacen(new File(DATA_PATH));
 		} catch(AlmacenException e) {
-			fail("Excepci�n durante la construcci�n de Almac�n");
+			fail("Excepción durante la construcción de Almacén");
 		}
 	}
 	
 	@Test
 	public void testMetodo1() {
-		assertEquals("El m�todo 1 no retorn� el valor correcto.", almacen.metodo1(), "Respuesta 1");
+		assertEquals("El método 1 no retornó el valor correcto.", almacen.metodo1(), "Respuesta 1");
 	}
 	
 	@Test
 	public void testMetodo2() {
-		assertEquals("El m�todo 2 no retorn� el valor correcto.", almacen.metodo2(), "Respuesta 2");
+		assertEquals("El método 2 no retornó el valor correcto.", almacen.metodo2(), "Respuesta 2");
 	}
 	
 	@Test
 	public void eliminarNodoRaiz() {
 		try {
 			almacen.eliminarNodo("1");
-			fail("El programa no lanz� error al intentar eliminar la ra�z.");
+			fail("El programa no lanzó error al intentar eliminar la raíz.");
 		} catch (AlmacenException e) {
 			
 		}
@@ -57,10 +57,10 @@ public class AlmacenTest {
 		NodoAlmacen nodo = almacen.buscarNodo(id);
 		if (nombre == null) {
 			if (nodo != null) {
-				fail("�El programa devolvi� un nodo que no exist�a!");
+				fail("¡El programa devolvió un nodo que no existía!");
 			}
 		} else {
-			assertEquals("�El nombre del nodo que devolvi� el programa no correponde al esperado!", nodo.darNombre(), nombre);
+			assertEquals("¡El nombre del nodo que devolvió el programa no correponde al esperado!", nodo.darNombre(), nombre);
 		}
 	}
 	
@@ -71,18 +71,18 @@ public class AlmacenTest {
 			Categoria categoria = almacen.eliminarNodo(id);
 			if (idPadre == null) {
 				if (categoria != null) {
-					fail("�Un nodo que no existe no tiene padre!");
+					fail("¡Un nodo que no existe no tiene padre!");
 				}
 			}
 			else {
-				assertEquals("�El id de la categor�a que devolvi� el programa no correponde al esperado!", categoria.darIdentificador(), idPadre);
+				assertEquals("¡El id de la categoría que devolvió el programa no correponde al esperado!", categoria.darIdentificador(), idPadre);
 				NodoAlmacen nodo = almacen.buscarNodo(id);
 				if (nodo != null) {
-					fail("�El producto no fue eliminado correctamente!");
+					fail("¡El producto no fue eliminado correctamente!");
 				}
 			}
 		} catch (AlmacenException e) {
-			fail("�El programa lanz� un error al intentar eliminar un nodo diferente a la ra�z!");
+			fail("¡El programa lanzó un error al intentar eliminar un nodo diferente a la raíz!");
 		}
 	}
 	
@@ -91,7 +91,7 @@ public class AlmacenTest {
 	public void agregarNodoExistente(String idPadre, String pTipo, String pIdentificador, String pNombre) {
 		try {
 			almacen.agregarNodo(idPadre,pTipo,pIdentificador,pNombre);
-			fail("�No se lanz� excepci�n al agregar un nodo con identificador existente!");
+			fail("¡No se lanzó excepción al agregar un nodo con identificador existente!");
 		} catch (AlmacenException e) {
 			
 		}
@@ -102,7 +102,7 @@ public class AlmacenTest {
 	public void agregarNodoPadreIncorrecto(String idPadre, String pTipo, String pIdentificador, String pNombre) {
 		try {
 			almacen.agregarNodo(idPadre,pTipo,pIdentificador,pNombre);
-			fail("�No se puede agregar un producto a un padre inexistente!");
+			fail("¡No se puede agregar un producto a un padre inexistente!");
 		} catch (AlmacenException e) {
 			
 		}
@@ -115,12 +115,12 @@ public class AlmacenTest {
 			almacen.agregarNodo(idPadre,pTipo,pIdentificador,pNombre);
 			NodoAlmacen nodo = almacen.buscarNodo(pIdentificador);
 			if (nodo == null) {
-				fail("�No se encontr� el nodo agregado!");
+				fail("¡No se encontró el nodo agregado!");
 			} else {
-				assertEquals("�El nombre del nodo no corresponde al nombre esperado!",nodo.darNombre(), pNombre);
+				assertEquals("¡El nombre del nodo no corresponde al nombre esperado!",nodo.darNombre(), pNombre);
 			}
 		} catch (AlmacenException e) {
-			fail("�El m�todo lanz� una excepci�n a una entrada v�lida!");
+			fail("¡El método lanzó una excepción a una entrada válida!");
 		}
 	}
 	
@@ -129,7 +129,7 @@ public class AlmacenTest {
 	public void agregarProductoExistente(String pIdMarca, String pCodigo, String pNombre, String pDescripcion, double pPrecio) {
 		try {
 			almacen.agregarProducto(pIdMarca, pCodigo, pNombre, pDescripcion, pPrecio);
-			fail("�El m�todo no lanz� excepci�n al introducir un producto existente!");
+			fail("¡El método no lanzó excepción al introducir un producto existente!");
 		} catch (AlmacenException e) {
 			
 		}
@@ -140,7 +140,7 @@ public class AlmacenTest {
 	public void agregarProductoMarcaIncorrecta(String pIdMarca, String pCodigo, String pNombre, String pDescripcion, double pPrecio) {
 		try {
 			almacen.agregarProducto(pIdMarca, pCodigo, pNombre, pDescripcion, pPrecio);
-			fail("�No se pueden agregar productos a marcas inexistentes!");
+			fail("¡No se pueden agregar productos a marcas inexistentes!");
 		} catch (AlmacenException e) {
 			
 		}
@@ -153,7 +153,7 @@ public class AlmacenTest {
 			almacen.agregarProducto(pIdMarca, pCodigo, pNombre, pDescripcion, pPrecio);
 			almacen.venderProducto(pCodigo, 1);
 		} catch (AlmacenException e) {
-			fail("�El m�todo lanz� una excepci�n a una entrada v�lida! - Mensaje: "+e.getMessage());
+			fail("¡El método lanzó una excepción a una entrada válida! - Mensaje: "+e.getMessage());
 		}
 	}
 	
@@ -163,18 +163,82 @@ public class AlmacenTest {
 		almacen.eliminarProducto(pCodigo);
 		try {
 			almacen.venderProducto(pCodigo, 1);
-			fail("El almacen no elimin� el producto correctamente.");
+			fail("El almacen no eliminó el producto correctamente.");
 		} catch(Exception e) {
 			
 		}
 	}
-	
+	private static Stream<Arguments> argumentsBuscarNodos(){
+		return Stream.of(
+				Arguments.of("",""),
+				Arguments.of("",""),
+				Arguments.of("","")
+				);
+	}
+	private static Stream<Arguments> argumentsEliminarNodos(){
+		return Stream.of(
+				Arguments.of("",""),
+				Arguments.of("",""),
+				Arguments.of("","")
+
+				);
+	}
+	private static Stream<Arguments> argumentsAgregarNodoExistente(){
+		return Stream.of(
+				Arguments.of("","","",""),
+				Arguments.of("","","",""),
+				Arguments.of("","","","")
+				);
+	}
+	private static Stream<Arguments> argumentsAgregarNodoPadreIncorrecto(){
+		return Stream.of(
+				Arguments.of("","","",""),
+				Arguments.of("","","",""),
+				Arguments.of("","","","")
+				);
+	}
+	private static Stream<Arguments> argumentsAgregarNodoCorrecto(){
+		return Stream.of(
+				Arguments.of("","","",""),
+				Arguments.of("","","",""),
+				Arguments.of("","","","")
+				);
+	}
+	private static Stream<Arguments> argumentsAgregarProductoExistente(){
+		return Stream.of(
+				Arguments.of("1111","31759941","LED 49\" Smart TV Full HD","AtrÈvete a vivir la mejor experiencia de entretenimiento con el LED 49\" Smart TV Full HD | UN49J5200AKXZL de Samsung, un increIble televisor que combina lo mejor de la tecnologÌa para sorprenderte con im·genes envolventes y tonalidades profundas. Por conectividad no tendr·s que preocuparte, ya que sus 2 entradas HDMI y su puerto USB ser·n ideales para que compartas contenido desde tus dispositivos compatibles y rompas con todos los lÌmites",1549000),
+				Arguments.of("5678","30999801","MacBook Air 13,3\" Core i5 8GB 128GB","Apple llega para sorprender a los m·s exigentes con el MacBook Air 13,3\" Core i5 8GB 128 GB | MQD32E/A, un moderno computador port·til que seguro superar· todas tus expectativas gracias al poder otorgado por su procesador Core i5 de 2 n˙cleos y su memoria RAM de 8GB, el d˙o perfecto para responder con fluidez a todos tus requerimientos, rompiendo con todos los lÌmites.",2799990),
+				Arguments.of("1131A1","7704791121","SillÛn Dryden","Esta pieza combina un tejido con textura de diamante con una suave microfibra aterciopelada, creando un tapizado ˙nico. Su estructura recta y discreta le brindan versatilidad y le permiten ser usada en diferentes espacios del hogar.",2799930)
+				);
+	}
+	private static Stream<Arguments> argumentsAgregarProductoMarcaIncorrecta(){
+		return Stream.of(
+				Arguments.of("1111","31759941","LED 49\" Smart TV Full HD","AtrÈvete a vivir la mejor experiencia de entretenimiento con el LED 49\" Smart TV Full HD | UN49J5200AKXZL de Samsung, un increIble televisor que combina lo mejor de la tecnologÌa para sorprenderte con im·genes envolventes y tonalidades profundas. Por conectividad no tendr·s que preocuparte, ya que sus 2 entradas HDMI y su puerto USB ser·n ideales para que compartas contenido desde tus dispositivos compatibles y rompas con todos los lÌmites",1549000),
+				Arguments.of("1234","31759941","LED 49\" Smart TV Full HD","AtrÈvete a vivir la mejor experiencia de entretenimiento con el LED 49\" Smart TV Full HD | UN49J5200AKXZL de Samsung, un increÌble televisor que combina lo mejor de la tecnologÌa para sorprenderte con im·genes envolventes y tonalidades profundas. Por conectividad no tendr·s que preocuparte, ya que sus 2 entradas HDMI y su puerto USB ser·n ideales para que compartas contenido desde tus dispositivos compatibles y rompas con todos los lÌmites",1549000),
+				Arguments.of("5678","30999801","MacBook Air 13,3\" Core i5 8GB 128GB","Apple llega para sorprender a los m·s exigentes con el MacBook Air 13,3\" Core i5 8GB 128 GB | MQD32E/A, un moderno computador port·til que seguro superar· todas tus expectativas gracias al poder otorgado por su procesador Core i5 de 2 n˙cleos y su memoria RAM de 8GB, el d˙o perfecto para responder con fluidez a todos tus requerimientos, rompiendo con todos los lÌmites.",2799990)
+				);
+	}
+
+	private static Stream<Arguments> argumentsAgregarProductoCorrecto(){
+		return Stream.of(
+					Arguments.of("1111","31759941","LED 49\" Smart TV Full HD","AtrÈvete a vivir la mejor experiencia de entretenimiento con el LED 49\" Smart TV Full HD | UN49J5200AKXZL de Samsung, un increÌble televisor que combina lo mejor de la tecnologÌa para sorprenderte con im·genes envolventes y tonalidades profundas. Por conectividad no tendr·s que preocuparte, ya que sus 2 entradas HDMI y su puerto USB ser·n ideales para que compartas contenido desde tus dispositivos compatibles y rompas con todos los lÌmites",1549000),
+					Arguments.of("1234","31759941","LED 49\" Smart TV Full HD","AtrÈvete a vivir la mejor experiencia de entretenimiento con el LED 49\" Smart TV Full HD | UN49J5200AKXZL de Samsung, un increÌble televisor que combina lo mejor de la tecnologÌa para sorprenderte con im·genes envolventes y tonalidades profundas. Por conectividad no tendr·s que preocuparte, ya que sus 2 entradas HDMI y su puerto USB ser·n ideales para que compartas contenido desde tus dispositivos compatibles y rompas con todos los lÌmites",1549000),
+					Arguments.of("1121","30999801","MacBook Air 13,3\" Core i5 8GB 128GB","Apple llega para sorprender a los m·s exigentes con el MacBook Air 13,3\" Core i5 8GB 128 GB | MQD32E/A, un moderno computador port·til que seguro superar· todas tus expectativas gracias al poder otorgado por su procesador Core i5 de 2 n˙cleos y su memoria RAM de 8GB, el d˙o perfecto para responder con fluidez a todos tus requerimientos, rompiendo con todos los lÌmites.",2799990)
+				);
+	}
+
 	private static Stream<Arguments> argumentsEliminarProducto(){
 		return Stream.of(
 					Arguments.of("32206871"),
 					Arguments.of("8804692551"),
-					Arguments.of("33898021")
+					Arguments.of("1234567")
 				);
+	
+	
+
+
 	}
+
+	
 	
 }
