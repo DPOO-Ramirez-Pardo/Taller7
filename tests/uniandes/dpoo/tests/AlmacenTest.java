@@ -57,10 +57,10 @@ public class AlmacenTest {
 		NodoAlmacen nodo = almacen.buscarNodo(id);
 		if (nombre == null) {
 			if (nodo != null) {
-				fail("¡El programa devolvió un nodo que no existía!");
+				fail("�El programa devolvio un nodo que no existia!");
 			}
 		} else {
-			assertEquals("¡El nombre del nodo que devolvió el programa no correponde al esperado!", nodo.darNombre(), nombre);
+			assertEquals("�El nombre del nodo que devolvio el programa no correponde al esperado!", nodo.darNombre(), nombre);
 		}
 	}
 	
@@ -75,14 +75,14 @@ public class AlmacenTest {
 				}
 			}
 			else {
-				assertEquals("¡El id de la categoría que devolvió el programa no correponde al esperado!", categoria.darIdentificador(), idPadre);
+				assertEquals("�El id de la categoria que devolvio el programa no correponde al esperado!", categoria.darIdentificador(), idPadre);
 				NodoAlmacen nodo = almacen.buscarNodo(id);
 				if (nodo != null) {
 					fail("¡El producto no fue eliminado correctamente!");
 				}
 			}
 		} catch (AlmacenException e) {
-			fail("¡El programa lanzó un error al intentar eliminar un nodo diferente a la raíz!");
+			fail("¡El programa lanzo un error al intentar eliminar un nodo diferente a la raíz!");
 		}
 	}
 	
